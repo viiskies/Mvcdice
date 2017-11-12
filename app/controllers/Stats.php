@@ -1,8 +1,9 @@
 <?php
 
-class Stats extends Controller {
-
-    public function index() {
+class Stats extends Controller
+{
+    public function index()
+    {
 
         $data['title'] = "Dice Game Stats";
         $data['header'] = "Stats";
@@ -14,7 +15,8 @@ class Stats extends Controller {
         $this->view("stats/index", $data);
     }
 
-    public function top() {
+    public function top()
+    {
 
         $data['title'] = "Dice Game Stats";
         $data['header'] = "Top players";

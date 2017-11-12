@@ -1,60 +1,53 @@
 <?php
 
-class Login extends Controller {
+class Login extends Controller
+{
 
-	public function index() {
-		$login_alert = false;
-
-	// after registration jump straight into page
-		if (isset($_SESSION['username'])) {
-			$_POST['username'] = $_SESSION['username'];
-			$_POST['password'] = $_SESSION['password'];
-		}
-
-		if (isset($_POST['username']) ) {
-
-			try {
-
-				$user = $this->model('User');
-				$response = $user->getUserPass($_POST['username']);
-
-				// print_r($response);
-				// echo $response[0]['username'];
-				// die();
+    public function index()
+    {
 
 
-			} catch(PDOException $e) { 
-				echo $e->getMessage(); 
-			}
-			$hash = $response[0]['password'];
-			$password = $_POST['password'];
+        // after registration jump straight into page
+        if (isset($_SESSION['username'])) {
+            header('Location: dice/play');
+            exit;
+        }
 
-			if ( password_verify($password, $hash) && $_POST['password'] != "") {
+        if (isset($_POST['username'])) {
 
-				$_SESSION['username'] = $_POST['username'];
-				$_SESSION['last_login'] = date("Y-m-d H:m:s");
+            try {
 
-		// setcookie("sausainis_username", $response['username'], time() + (60*60*24), "/");
+                $user = $this->model('User');
+                $response = $user->getUserPass($_POST['username']);
 
-			} else {
-				$login_alert = true;
-			}
+                $hash = $response['password'];
+                $password = $_POST['password'];
+
+                if (password_verify($password, $hash) && $_POST['password'] != "") {
+                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['last_login'] = date("Y-m-d H:m:s");
+                    // setcookie("sausainis_username", $response['username'], time() + (60*60*24), "/");
+                } else {
+                    $data['alert'] = 'cool';
+                    $data['title'] = "Login Form";
+                    $this->view("loginForm", $data);
+                    exit;
+                }
 
 
-		} elseif (isset($_POST['logout'])) {
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
 
-			session_destroy();
-			$_SESSION = null;
-		} 
-
-		if(isset($_SESSION['username']) && $_SESSION['username'] != "") {
-			// die();
-			header("Location: dice/play");
-		} else {
-	// echo "You are guest";
-		}
-	}
-
-	public function logout() {}
-
+        } elseif (isset($_POST['logout'])) {
+            session_destroy();
+            $_SESSION = null;
+        }
+        if (isset($_SESSION['username']) && $_SESSION['username'] != "") {
+//			 die();
+            header("Location: dice/play");
+        } else {
+            header('Location: loginform');
+        }
+    }
 }

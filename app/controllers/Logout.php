@@ -6,11 +6,12 @@ class Logout extends Controller {
 		$data['title'] = "From logout";
         $data['header'] = "CA Dice Game";
         $data['guest'] = "true";
+//      session_start();
 		session_destroy();
 		$_SESSION = null;
 
-		// header("Location: loginform");
-		$this->view("loginform", $data);
-		
-	}
+        $this->view("loginform", $data);
+        header("Location: loginform");
+
+    }
 }

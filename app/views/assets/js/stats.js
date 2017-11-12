@@ -1,6 +1,6 @@
-var ctx = document.getElementById('top10Chart').getContext('2d');
-var ctx1 = document.getElementById('myCharts').getContext('2d');
-var chart = new Chart(ctx, {
+let ctx = document.getElementById('top10Chart').getContext('2d');
+let ctx1 = document.getElementById('myCharts').getContext('2d');
+let chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
 
@@ -11,7 +11,7 @@ var chart = new Chart(ctx, {
             label: "Winings in EUR",
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [],
+            data: []
         }]
     },
 
@@ -19,7 +19,7 @@ var chart = new Chart(ctx, {
     options: {}
 });
 
-var chartLast = new Chart(ctx1, {
+let chartLast = new Chart(ctx1, {
     // The type of chart we want to create
     type: 'line',
 
@@ -30,7 +30,7 @@ var chartLast = new Chart(ctx1, {
             label: "Winings in EUR",
             backgroundColor: 'rgb(255, 99, 25)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [],
+            data: []
         }]
     },
 
@@ -38,7 +38,7 @@ var chartLast = new Chart(ctx1, {
     options: {}
 });
 
-$.getJSON("dice/topWinners", function(result){
+$.getJSON("../dice/topWinners", function(result){
     $.each(result, function(i, field){
         addData(chart,  field['username'], field['max(winings)']);
     });
@@ -46,7 +46,7 @@ $.getJSON("dice/topWinners", function(result){
 
 let username = $("#username").text();
 
-$.getJSON("Dice/myGames", function(result){
+$.getJSON("../Dice/myGames", function(result){
     $.each(result, function(i, field){
         addData(chartLast,  field['username'], field['winings']);
     });

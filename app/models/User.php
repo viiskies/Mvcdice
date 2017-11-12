@@ -20,18 +20,18 @@ class User {
     }
 
     // Get user iwth password
-    public function getUserPass(string $username) : array {
-        return $this->db->select("SELECT username, password FROM users WHERE username = :username",
+    public function getUserPass(string $username) {
+        return $this->db->selectOne("SELECT username, password FROM users WHERE username = :username",
             ['username' => $username]);
     }
 
     // Get user
     public function addUser(string $name, string $username, string $password)  {
-        $password_h = password_hash($password, PASSWORD_DEFAULT);
+
         return $this->db->insert("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)",
             ['username' => $username,
             'name' => $name,
-            'password' => $password_h
+            'password' => $password
             ]);
     }
 
