@@ -43,7 +43,7 @@
                 <p class="text-success nav-link mb-0 font-weight-bold">Welcome, <span id="username">
                         <?php echo strtoupper($_SESSION['username']); ?></span>
                 </p>
-                <a class="btn btn-outline-success my-2 my-sm-0" href="../logout">Logout</a>
+                <a class="btn btn-outline-success my-2 my-sm-0" href="../auth/logout">Logout</a>
             </form>
         <?php } ?>
     </div>

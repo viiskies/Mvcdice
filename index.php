@@ -1,7 +1,9 @@
 <?php
 $start = microtime(true);
 
+
 require "vendor/autoload.php";
+require "config.php";
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
