@@ -1,7 +1,6 @@
 <?php
 $login_alert = false;
 $guest = true;
-print_r($data);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,8 @@ print_r($data);
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="../dice/play">
-            <img src="/<?= CONFIG['site_path']; ?>/app/views/assets/img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="/<?= CONFIG['site_path']; ?>/app/views/assets/img/favicon.png" width="30" height="30"
+                 class="d-inline-block align-top" alt="">
             Dice Game
         </a>
         <?php if (!isset($guest)) { ?>
@@ -56,9 +56,9 @@ print_r($data);
 
 <div class="container">
     <form class="form-signin" method="POST" action="/<?= CONFIG['site_path']; ?>/auth/login">
-        <?php if (isset($data['alert'])) { ?>
+        <?php if (isset($data['messages'][0])) { ?>
             <div class="alert alert-danger my-5" role="alert">
-                Login Failed
+                <?= $data['messages'][0]['body']; ?>
             </div>
         <?php } ?>
 

@@ -1,98 +1,96 @@
 <?php
-class Auth extends Controller {
 
-	protected $msg = [];
+class Auth extends Controller
+{
 
-	public function regForm()
-	{
-		$data['title'] = "Registration Form";
-		$this->view("regForm", $data);
-	}
+    protected $msg = [];
 
-	public function reg()
-	{
-		if (isset($_POST['username']) && $_POST['username'] != "" && $_POST['password'] != "" && $_POST['repeatPassword'] != "") {
-			$user = $this->model('User');
-			$response = $user->getUser($_POST['username']);
+    public function regForm()
+    {
+        $data['messages'] = $this->msg;
+        $data['title'] = "Registration Form";
+        $this->view("regForm", $data);
+    }
 
-			if (empty($response)) {
-				if ($_POST['password'] == $_POST['repeatPassword']) {
-					$password_h = password_hash($_POST['password'], PASSWORD_DEFAULT);
-					$user->addUser($_POST['name'], $_POST['username'], $password_h);
+    public function reg()
+    {
+        if (isset($_POST['username']) && $_POST['username'] != "" && $_POST['password'] != "" && $_POST['repeatPassword'] != "") {
+            $user = $this->model('User');
+            $response = $user->getUser($_POST['username']);
 
-					$this->msg[] = ['type' => 'success', 'body' => 'User was added'];
+            if (empty($response)) {
+                if ($_POST['password'] == $_POST['repeatPassword']) {
+                    $password_h = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $user->addUser($_POST['name'], $_POST['username'], $password_h);
 
-					$this->loginForm();
+                    $this->msg[] = ['type' => 'success', 'body' => 'User was added'];
+                    $this->loginForm();
 
-				} else {
-					$this->msg[] = ['type' => 'danger', 'body' => 'Passwords don\'t match.'];
-					$this->regForm();
-				}
+                } else {
+                    $this->msg[] = ['type' => 'danger', 'body' => 'Passwords don\'t match.'];
+                    $this->regForm();
+                }
 
-			} else {
-				$response['message'] = ['type' => 'danger', 'body' => 'This username is already registered. Choose another.'];
-				$this->regForm();
-			}
+            } else {
+                $this->msg[] = ['type' => 'danger', 'body' => 'This username is registered. Choose another.'];
+                $this->regForm();
+            }
 
-		} else {
-			$response['message'] = ['type' => 'warning', 'body' => 'No user data to submit'];
-			$this->regForm();
-		}
-	}
+        } else {
+            $this->msg[] = ['type' => 'warning', 'body' => 'No user data to submit'];
+            $this->regForm();
+        }
+    }
 
-	public function loginForm()
-	{
-		$data['messages'] = $this->msg;
-		$data['title'] = "Login Form";
-		$this->view("loginForm", $data);
-	}
+    public function loginForm()
+    {
+        $data['messages'] = $this->msg;
+        $data['title'] = "Login Form";
+        $this->view("loginForm", $data);
+    }
 
 
-	public function login()
-	{
+    public function login()
+    {
         // after registration jump straight into page
-		if (isset($_SESSION['username'])) {
-			die();
-			header('Location: dice/play');
-			exit;
-		}
+        if (isset($_SESSION['username'])) {
+            header('Location: dice/play');
+            exit;
+        }
 
-		if (isset($_POST['username']) && $_POST['password'] != "") {
+        if (isset($_POST['username']) && $_POST['password'] != "") {
 
-			$user = $this->model('User');
-			$response = $user->getUserPass($_POST['username']);
+            $user = $this->model('User');
+            $response = $user->getUserPass($_POST['username']);
 
-			$hash = $response['password'];
-			$password = $_POST['password'];
+            $hash = $response['password'];
+            $password = $_POST['password'];
 
-			if (password_verify($password, $hash) ) {
-				$_SESSION['username'] = $_POST['username'];
-				$_SESSION['last_login'] = date("Y-m-d H:m:s");
-				// die();
-				// header('Location: dice/play');
-				$data['title'] = 'Dice game';
-				$this->view('dice/play', $data);
+            if (password_verify($password, $hash)) {
+                $_SESSION['username'] = $_POST['username'];
+                $_SESSION['last_login'] = date("Y-m-d H:m:s");
 
-                    // setcookie("sausainis_username", $response['username'], time() + (60*60*24), "/");
-			} else {
+                $data['title'] = 'Dice game';
+                $this->view('dice/play', $data);
 
-				$this->msg[] = ['type' => 'danger', 'body' => 'cant login.'];
-				$this->loginForm();
-
-			}
-		} else {
-			$this->msg[] = ['alert'];
-			$this->loginForm();
-		}
-	}
+            } else {
+                $this->msg[] = ['type' => 'danger', 'body' => "Can't authenticate you. <br> Please try again!"];
+                $this->loginForm();
+            }
+        } else {
+            $this->msg[] = ['type' => 'danger', 'body' => 'Please fill in username and password'];
+            $this->loginForm();
+        }
+    }
 
 
-	public function logout() {
+    public function logout()
+    {
 
-		session_destroy();
-		$_SESSION = null;
+        session_destroy();
+        $_SESSION = null;
 
-		$this->msg[] = ['type' => 'success', 'body' => 'Logget out'];
-		$this->loginForm();
-	}
+        $this->msg[] = ['type' => 'success', 'body' => 'Logget out'];
+        $this->loginForm();
+    }
 }

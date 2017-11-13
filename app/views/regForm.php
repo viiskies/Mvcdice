@@ -56,9 +56,9 @@ $guest = true;
 
 <div class="container">
     <form class="form-signin" method="POST" action="/<?= CONFIG['site_path']; ?>/auth/reg">
-        <?php if (isset($response['message']) && $response['message']['type'] != 'warning') { ?>
+        <?php if (isset($data['messages'][0])) { ?>
             <div class="alert alert-danger my-5" role="alert">
-                <?php echo $response['message']['body']; ?>
+                <?= $data['messages'][0]['body']; ?>
             </div>
         <?php } ?>
 
