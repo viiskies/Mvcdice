@@ -21,7 +21,10 @@ class Stats extends Controller
         $data['title'] = "Dice Game Stats";
         $data['header'] = "Top players";
         $data['body'] = "Here we have a list of our players";
-
+        if (empty($_SESSION['username'])) {
+            $this->view('loginform', $data);
+            die();
+        }
         $this->view("stats/top", $data);
     }
 }

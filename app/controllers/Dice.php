@@ -49,8 +49,7 @@ class Dice extends Controller
         $data['title'] = "CA Dice Game";
         $data['header'] = "CA Dice Game";
         if (empty($_SESSION['username'])) {
-            $this->view('loginform', $data);
-            // header('Location: ../loginform');
+            $this->view('auth/loginform', $data);
             die();
         }
         $this->view('dice/play', $data);

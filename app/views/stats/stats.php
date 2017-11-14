@@ -42,7 +42,7 @@
             <form class="form-inline my-2 my-lg-0">
                 <p class="text-success nav-link mb-0 font-weight-bold">Welcome, <span
                             id="username"><?php echo strtoupper($_SESSION['username']); ?></span></p>
-                <a class="btn btn-outline-success my-2 my-sm-0" href="logout.php">Logout</a>
+                <a class="btn btn-outline-success my-2 my-sm-0" href="/<?= CONFIG['site_path']; ?>/auth/logout">Logout</a>
             </form>
         <?php } ?>
     </div>

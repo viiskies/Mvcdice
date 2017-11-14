@@ -18,8 +18,8 @@ $guest = true;
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../app/views/assets/css/login.css">
-    <link rel="stylesheet" type="text/css" href="../app/views/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/<?= CONFIG['site_path']; ?>/app/views/assets/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/<?= CONFIG['site_path']; ?>/app/views/assets/css/main.css">
 
 
 </head>
@@ -30,27 +30,11 @@ $guest = true;
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="../dice/play">
+        <a class="navbar-brand" href="/<?= CONFIG['site_path']; ?>/dice/play">
             <img src="/<?= CONFIG['site_path']; ?>/app/views/assets/img/favicon.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Dice Game
         </a>
-        <?php if (!isset($guest)) { ?>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item <?php echo(isset($home_page) ? 'active' : ''); ?>">
-                    <a class="nav-link" href="index.php">Home</a>
-                </li>
-                <li class="nav-item <?php echo(isset($stats_page) ? 'active' : ''); ?>">
-                    <a class="nav-link" href="stats.php">Stats</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <p class="text-success nav-link mb-0 font-weight-bold">Welcome,
-                    <span id="username"><?php echo strtoupper($_SESSION['username']); ?></span>
-                </p>
-                <a class="btn btn-outline-success my-2 my-sm-0" href="logout">Logout</a>
-            </form>
-        <?php } ?>
     </div>
 </nav>
 

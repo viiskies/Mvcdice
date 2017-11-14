@@ -5,11 +5,16 @@ class Auth extends Controller
 
     protected $msg = [];
 
+    public function index()
+    {
+        $this->loginForm();
+    }
+
     public function regForm()
     {
         $data['messages'] = $this->msg;
         $data['title'] = "Registration Form";
-        $this->view("regForm", $data);
+        $this->view("auth/regForm", $data);
     }
 
     public function reg()
@@ -46,7 +51,7 @@ class Auth extends Controller
     {
         $data['messages'] = $this->msg;
         $data['title'] = "Login Form";
-        $this->view("loginForm", $data);
+        $this->view("auth/loginForm", $data);
     }
 
 
@@ -54,8 +59,11 @@ class Auth extends Controller
     {
         // after registration jump straight into page
         if (isset($_SESSION['username'])) {
+
+
+        	// Dice method play
             header('Location: dice/play');
-            exit;
+            die();
         }
 
         if (isset($_POST['username']) && $_POST['password'] != "") {
@@ -86,11 +94,10 @@ class Auth extends Controller
 
     public function logout()
     {
-
         session_destroy();
         $_SESSION = null;
 
-        $this->msg[] = ['type' => 'success', 'body' => 'Logget out'];
+        $this->msg[] = ['type' => 'success', 'body' => 'Logged out'];
         $this->loginForm();
     }
 }
