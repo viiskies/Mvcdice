@@ -1,7 +1,3 @@
-<?php
-$login_alert = false;
-$guest = true;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -26,7 +26,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="../dice/play">
+        <a class="navbar-brand" href="/<?= CONFIG['site_path']; ?>/dice/play">
             <img src="/<?= CONFIG['site_path']; ?>/app/views/assets/img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
             Dice Game
         </a>

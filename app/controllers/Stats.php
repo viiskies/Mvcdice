@@ -12,6 +12,10 @@ class Stats extends Controller
         $game = $this->model('Game');
         $data['games'] = $game->getTopWinners(3);
 
+        if (empty($_SESSION['username'])) {
+            $this->view('auth/loginform', $data);
+            die();
+        }
         $this->view("stats/index", $data);
     }
 
@@ -22,7 +26,7 @@ class Stats extends Controller
         $data['header'] = "Top players";
         $data['body'] = "Here we have a list of our players";
         if (empty($_SESSION['username'])) {
-            $this->view('loginform', $data);
+            $this->view('auth/loginform', $data);
             die();
         }
         $this->view("stats/top", $data);

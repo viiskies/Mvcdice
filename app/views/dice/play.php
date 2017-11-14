@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="../app/views/assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/<?= CONFIG['site_path']; ?>/app/views/assets/img/favicon.png" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -30,10 +30,10 @@
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item <?php echo(isset($home_page) ? 'active' : ''); ?>">
-                <a class="nav-link" href="../dice/play">Home</a>
+                <a class="nav-link" href="/<?= CONFIG['site_path']; ?>/dice/play">Home</a>
             </li>
             <li class="nav-item <?php echo(isset($stats_page) ? 'active' : ''); ?>">
-                <a class="nav-link" href="../stats/top">Stats</a>
+                <a class="nav-link" href="/<?= CONFIG['site_path']; ?>/stats/top">Stats</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -78,6 +78,6 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../app/views/assets/js/script.js"></script>
+<script type="text/javascript" src="/<?= CONFIG['site_path']; ?>/app/views/assets/js/script.js"></script>
 </body>
 </html>
